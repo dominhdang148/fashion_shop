@@ -3,6 +3,7 @@ import { useDispatch } from 'react-redux';
 import { addCart } from '../redux/action';
 import { Link, useParams } from 'react-router-dom';
 import Skeleton from 'react-loading-skeleton';
+import Navbar from "../component/Navbar";
 
 const Product = ()=> {
     
@@ -29,7 +30,7 @@ const Product = ()=> {
             setLoading(false);
         }
         getProduct();
-    },[id]);
+    },[]);
     const Loading =()=>{
         return(
             <>
@@ -64,10 +65,10 @@ const Product = ()=> {
                         <i className='fa fa-star'></i>
                     </p>
                     <h3 className='display-6 fw-bold my-4 px-4 py-2'>
-                        $ {product.price}
+                        ${product.price}
                     </h3>
                     <p className='lead'>{product.description}</p>
-                    <button className='btn btn-outline-dark' onClick={(product)=>addProduct(product)}>
+                    <button className='btn btn-outline-dark' onClick={()=>addProduct(product)}>
                         Add to Cart
                     </button>
                     <Link to={'/cart'} className='btn btn-dark ms-2 px-3 py-2'>
@@ -80,6 +81,7 @@ const Product = ()=> {
    
     return (
         <div>
+            <Navbar/>
             <div className='container py-5'>
                 <div className='row py-4'>
                     {loading ? <Loading/> : <ShowProduct/>}

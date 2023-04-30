@@ -1,1 +1,8 @@
 Phần frontend của dự án, xây dựng bằng React
+
+npm i redux
+npm i react-redux
+npm i bootstrap
+npm i font-awesome
+npm i react-loading-skeleton
+npm i react-router-dom

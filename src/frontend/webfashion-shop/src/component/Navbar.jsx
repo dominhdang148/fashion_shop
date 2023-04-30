@@ -4,15 +4,16 @@ import { useSelector } from "react-redux";
 
 const Navbar = () => {
   const state = useSelector((state) => state.handleCart);
+  console.log(state);
   return (
     <div>
-      <nav class="navbar navbar-expand-lg navbar-light bg-light py-3 shadow-sm">
-        <div class="container">
-          <Link class="navbar-brand fw-bold fs-4 " to="/">
+      <nav className="navbar navbar-expand-lg navbar-light bg-light py-3 shadow-sm">
+        <div className="container">
+          <Link className="navbar-brand fw-bold fs-4 " to="/">
            STORK SHOP
           </Link>
           <button
-            class="navbar-toggler"
+            className="navbar-toggler"
             type="button"
             data-bs-toggle="collapse"
             data-bs-target="#navbarSupportedContent"
@@ -20,27 +21,27 @@ const Navbar = () => {
             aria-expanded="false"
             aria-label="Toggle navigation"
           >
-            <span class="navbar-toggler-icon"></span>
+            <span className="navbar-toggler-icon"></span>
           </button>
-          <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav mx-auto mb-2 mb-lg-0">
-              <li class="nav-item">
-                <Link class="nav-link active" aria-current="page" to="/">
+          <div className="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul className="navbar-nav mx-auto mb-2 mb-lg-0">
+              <li className="nav-item">
+                <Link className="nav-link active" aria-current="page" to="/">
                   Home
                 </Link>
               </li>
-              <li class="nav-item">
-                <Link class="nav-link" to="/products">
+              <li className="nav-item">
+                <Link className="nav-link" to="/products">
                   Products
                 </Link>
               </li>
-              <li class="nav-item">
-                <Link class="nav-link" to="/about">
+              <li className="nav-item">
+                <Link className="nav-link" to="/about">
                   About
                 </Link>
               </li>
-              <li class="nav-item">
-                <Link class="nav-link" to="/contact">
+              <li className="nav-item">
+                <Link className="nav-link" to="/contact">
                   Contact
                 </Link>
               </li>
@@ -59,7 +60,7 @@ const Navbar = () => {
                 </Link>
                 <Link to="/cart" className="btn btn-outline-dark ms-2">
                     <i className="fa fa-shopping-cart me-1"></i>
-                    Cart (0)
+                    Cart ({state.length})
                 </Link>
             </div>
           </div>
