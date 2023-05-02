@@ -1,1 +1,0 @@
-Phần backend của dự án, xây dựng bằng DJANGO REST FRAMEWORK
