@@ -9,7 +9,7 @@ from django.db.models.signals import post_save, post_delete
 class Customer(models.Model):
     user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     first_name = models.CharField(max_length=100, default=None, null=True, blank=True)
-    last_name = models.CharField(max_length=100, default=None, null=False, blank=True)
+    last_name = models.CharField(max_length=100, default=None, null=True, blank=True)
     email = models.EmailField(
         max_length=100, default=None, null=True, blank=True, unique=True
     )
