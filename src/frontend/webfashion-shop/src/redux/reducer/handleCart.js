@@ -21,6 +21,7 @@ const handleCart =(state = cart, action) => {
                     }
                 ]
             }
+            
             break;
 
             case "DELITEM":
