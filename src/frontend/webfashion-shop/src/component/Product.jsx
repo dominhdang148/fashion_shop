@@ -4,7 +4,7 @@ import { addCart } from "../redux/action";
 import { Link, useParams } from "react-router-dom";
 import Skeleton from "react-loading-skeleton";
 import Navbar from "../component/Navbar";
-import axios from "axios";
+
 
 const Product = () => {
   const { id } = useParams();
