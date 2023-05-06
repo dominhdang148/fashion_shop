@@ -1,87 +1,87 @@
-import React from "react";
-import Navbar from "../../layouts/admin/Navbar";
-import Siderbar from "../../layouts/admin/Siderbar";
+import React, { useEffect, useState } from "react";
+import { useDispatch } from "react-redux";
+import { Link, useParams } from "react-router-dom";
 import EditProducts from "./EditProducts";
-import { Link } from "react-router-dom";
+import { getProduct } from "../../Services/repository";
+import Table from "react-bootstrap/Table";
 
-const Products = () => {
+const Productss = () => {
+  const [product, setProduct] = useState([]);
+
+  console.log(product);
+
+  useEffect(() => {
+    getProduct().then((data) => {
+      if (data)
+        setProduct(data);
+      else setProduct([]);
+    });
+  }, []);
+
+  const handleDelete = (item) => {};
+
   return (
     <div className="sb-nav-fixed">
-      <Navbar />
       <div id="layoutSidenav">
-        <div id="layoutSidenav_nav">
-          <Siderbar />
-        </div>
         <div id="layoutSidenav_content">
           <div>
-            <div className="ggg">
-            <Link to="/admin/products/editproducts">
-                  <button type="button" class="btn btn-info m-2">
-                Thêm mới
-              </button>
-            </Link>
-            
+          <button type="button" class="btn btn-info">Thêm sản phẩm</button>
+            <div className="head-title">
+              <h1>Các sản phẩm</h1>
+              <div className="product-management-container">
+                <Table striped responsive bordered>
+                  <thead>
+                    <tr>
+                      <th>STT</th>
+                      <th>Tên</th>
+                      <th>Mô tả</th>
+                      <th>Chủ đề</th>
+                      <th>Hàng tồn kho</th>
+                      <th>Giá</th>
+                      <th>Thao tác</th>
+                    </tr>
+                  </thead>
+
+                  <tbody>
+                    {product.length > 0 ? (
+                      product.map((item, index) => (
+                        <tr key={index}>
+                          <td>{index + 1}</td>
+                          <td>
+                            <Link
+                              to={`/admin/products/edit/${item.product_id}`}
+                              className="text-blod"
+                            >
+                              {item.name}
+                            </Link>
+                          </td>
+                          <td>{item.description}</td>
+                          <td>{item.category.title}</td>
+                          <td>{item.inventory}</td>
+                          <td>{item.price}</td>
+                          <td style={{ fontSize: "24px" , display: "flex"}}>
+                            <button type="button" class="btn btn-info">
+                              Sửa
+                            </button>
+                            <button type="button" class="btn btn-danger">
+                              Xóa
+                            </button>
+                          </td>
+                        </tr>
+                      ))
+                    ) : (
+                      <tr>
+                        <td colSpan={4}>
+                          <h4 className="text-danger text-center">
+                          Không có sản phẩm nào.
+                          </h4>
+                        </td>
+                      </tr>
+                    )}
+                  </tbody>
+                </Table>
+              </div>
             </div>
-            <table class="table">
-              <thead>
-                <tr>
-                  <th scope="col">STT</th>
-                  <th scope="col">Image</th>
-                  <th scope="col">Name</th>
-                  <th scope="col">Price</th>
-                  <th scope="col">Edit</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <th scope="row">1</th>
-                  <td>
-                    <img
-                      src="/acsets/bg.jpg"
-                      class="img-thumbnail"
-                      alt="..."
-                    ></img>
-                  </td>
-                  <td>Otto</td>
-                  <td>20$</td>
-                  <td>
-                    <button type="button" class="btn btn-info m-2">
-                      Sửa
-                    </button>
-                    <button type="button" class="btn btn-danger">
-                      Xóa
-                    </button>
-                  </td>
-                </tr>
-                <tr>
-                  <th scope="row">2</th>
-                  <td>Jacob</td>
-                  <td>Thornton</td>
-                  <td>@fat</td>
-                  <td>
-                    <button type="button" class="btn btn-info m-2">
-                      Sửa
-                    </button>
-                    <button type="button" class="btn btn-danger">
-                      Xóa
-                    </button>
-                  </td>
-                </tr>
-                <tr>
-                  <th scope="row">3</th>
-                  <td colspan="2">Larry the Bird</td>
-                  <td>@twitter</td>
-                  <td>
-                    <button type="button" class="btn btn-info m-2">
-                      Sửa
-                    </button>
-                    <button type="button" class="btn btn-danger">
-                      Xóa
-                    </button>
-                  </td>
-                </tr>
-              </tbody>
-            </table>
           </div>
         </div>
       </div>
@@ -89,4 +89,4 @@ const Products = () => {
   );
 };
 
-export default Products;
+export default Productss;

@@ -6,7 +6,7 @@ import Navbar from "../component/Navbar";
 function Home() {
   return (
     <div className="hero">
-      <Navbar/>
+      
       <div class="card text-bg-dark text-while border-0">
         <img
           src="/acsets/bg4.jpg"

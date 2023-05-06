@@ -1,7 +1,7 @@
 //import "./App.css";
 import Navbar from "./component/Navbar";
 import Home from "./component/Home";
-import { Route, Routes } from "react-router-dom";
+import {BrowserRouter, Routes, Route } from "react-router-dom";
 import Products from "./component/Products";
 import Product from "./component/Product";
 import Login from "./component/Login";
@@ -13,33 +13,34 @@ import MasterLayout from "./layouts/admin/MasterLayout";
 import Dashboard from "./component/Admin/Dashboard";
 import EditProducts from "./component/Admin/EditProducts";
 import Productss from "./component/Admin/Productss";
+import Users from "./component/Admin/Users";
+import Index from "./component/Index";
+import IndexAdmin from "./layouts/admin/IndexAdmin";
 
 function App() {
   return (
-    <div className="App">
-      <div className="frontend">
-        {/* <Navbar /> */}
+    <BrowserRouter>
         <Routes>
-          <Route exact path="/" Component={Home} />
-          <Route exact path="/products" Component={Products} />
-          <Route exact path="/products/:id" Component={Product} />
-          <Route exact path="/login" Component={Login} />
-          <Route exact path="/register" Component={Register} />
-          <Route exact path="/cart" Component={Cart} />
-          <Route exact path="/about" Component={About} />
-          <Route exact path="/contact" Component={Contact} />
+          <Route path="/" element={<Index />}>
+            <Route index element={<Home/>}/>
+            <Route path="/products" element={<Products/>} />
+            <Route path="/products/:id" element={<Product/>} />
+            <Route path="/login" element={<Login/>} />
+            <Route path="/register" element={<Register/>} />
+            <Route path="/cart" element={<Cart/>} />
+            <Route path="/about" element={<About/>} />
+            <Route path="/contact" element={<Contact/>} />
+          </Route>
+          <Route path="/admin" element={<IndexAdmin />}>
+            {/* <Route exact path="/admin" element={<MasterLayout/>} /> */}
+            <Route exact path="/admin/dashboard" element={<Dashboard/>} />
+            <Route exact path="/admin/products" element={<Productss/>} />
+            <Route exact path="/admin/products/edit" element={<EditProducts/>} />
+            <Route exact path="/admin/products/edit/:id" element={<EditProducts/>} />
+            <Route exact path="/admin/user" element={<Users/>} />
+          </Route>
         </Routes>
-      </div>
-      <div className="admin">
-        <Routes>
-          <Route exact path="/admin" Component={MasterLayout} />
-          <Route exact path="/admin/dashboard" Component={Dashboard} />
-          
-          <Route exact path="/admin/products" Component={Productss} />
-          <Route exact path="/admin/products/editproducts" Component={EditProducts} />
-        </Routes>
-      </div>
-    </div>
+    </BrowserRouter>
   );
 }
 
