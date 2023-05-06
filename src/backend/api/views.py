@@ -25,7 +25,6 @@ from rest_framework.mixins import (
 
 class ProductsViewSet(ModelViewSet):
     queryset = products = Product.objects.all()
-    serializer_class = ProductSerializer
 
     filter_backends = [
         DjangoFilterBackend,
@@ -37,8 +36,17 @@ class ProductsViewSet(ModelViewSet):
         "name",
         "description",
     ]
-    ordering_fields = ["old_price"]
+    ordering_fields = ["price"]
     pagination_class = PageNumberPagination
+
+    def get_serializer_class(self):
+        if (
+            self.request.method == "POST"
+            or self.request.method == "PUT"
+            or self.request.method == "PATCH"
+        ):
+            return ModifyProductSerializer
+        return ProductSerializer
 
 
 # Category
