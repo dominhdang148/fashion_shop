@@ -45,6 +45,7 @@ INSTALLED_APPS = [
     "rest_framework",
     "django_filters",
     "djoser",
+    "corsheaders",
 ]
 
 MIDDLEWARE = [
@@ -55,6 +56,8 @@ MIDDLEWARE = [
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
+    "corsheaders.middleware.CorsMiddleware",
+    "django.middleware.common.CommonMiddleware",
 ]
 
 ROOT_URLCONF = "backend.urls"
@@ -82,18 +85,18 @@ WSGI_APPLICATION = "backend.wsgi.application"
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
 DATABASES = {
-    # "default": {
-    #     "ENGINE": "django.db.backends.sqlite3",
-    #     "NAME": BASE_DIR / "db.sqlite3",
-    # }
     "default": {
-        "ENGINE": "django.db.backends.mysql",
-        "NAME": "fashion_shop",
-        "USER": "root",
-        "PASSWORD": "dmd123456789",
-        "HOST": "localhost",
-        "PORT": "3306",
+        "ENGINE": "django.db.backends.sqlite3",
+        "NAME": BASE_DIR / "db.sqlite3",
     }
+    # "default": {
+    #     "ENGINE": "django.db.backends.mysql",
+    #     "NAME": "fashion_shop",
+    #     "USER": "root",
+    #     "PASSWORD": "dmd123456789",
+    #     "HOST": "localhost",
+    #     "PORT": "3306",
+    # }
 }
 
 
@@ -158,7 +161,12 @@ SIMPLE_JWT = {
 DJOSER = {"SERIALIZERS": {"user_create": "core.serializers.MyUserCreateSerializer"}}
 
 AUTH_USER_MODEL = "core.User"
-#  {
-#     "refresh": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoicmVmcmVzaCIsImV4cCI6MTY4MzUxNTEyNiwiaWF0IjoxNjgzMzQyMzI2LCJqdGkiOiI2MDM0N2YzZTdmNmI0YjhhYTVlNDI1ZWRmNzMyMjlkMSIsInVzZXJfaWQiOjN9.h4FQwwwvGptgPG9oatsym-_iNkCMA7xoYRC309XLuhk",
-#     "access": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjgzNDI4NzI2LCJpYXQiOjE2ODMzNDIzMjYsImp0aSI6ImRiOWNiMGM1Nzg2ZDRhODZiM2NlODc4NzlhNjRmOTAxIiwidXNlcl9pZCI6M30.v1dJ18cSYtTa53Y1bcoyF6pXOpgzq4DFQhykRvxHAyQ"
-# }
+
+CORS_ALLOW_ALL_ORIGINS = True # If this is used then `CORS_ALLOWED_ORIGINS` will not have any effect
+CORS_ALLOW_CREDENTIALS = True
+CORS_ALLOWED_ORIGINS = [
+    'http://localhost:3000',
+] # If this is used, then not need to use `CORS_ALLOW_ALL_ORIGINS = True`
+CORS_ALLOWED_ORIGIN_REGEXES = [
+    'http://localhost:3000',
+]
