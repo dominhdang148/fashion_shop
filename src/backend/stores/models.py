@@ -44,7 +44,6 @@ class Product(models.Model):
     )
     name = models.CharField(max_length=100)
     description = models.TextField()
-    discount = models.BooleanField(default=False)
     slug = models.SlugField(default=None, blank=True, null=True)
     image = models.ImageField(
         upload_to="img",
