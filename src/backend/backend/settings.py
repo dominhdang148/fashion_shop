@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 
 import os
 from pathlib import Path
+from datetime import timedelta
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -39,11 +40,11 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
     "stores",
-    "users",
     "core",
     "api",
     "rest_framework",
     "django_filters",
+    "djoser",
 ]
 
 MIDDLEWARE = [
@@ -141,7 +142,23 @@ MEDIA_ROOT = BASE_DIR / "static"
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 REST_FRAMEWORK = {
-    "PAGE_SIZE": 5,
+    "DEFAULT_AUTHENTICATION_CLASSES": (
+        "rest_framework_simplejwt.authentication.JWTAuthentication",
+    ),
+    "PAGE_SIZE": 10,
 }
 
+
+SIMPLE_JWT = {
+    "AUTH_HEADER_TYPES": ("JWT",),
+    "ACCESS_TOKEN_LIFETIME": timedelta(days=1),
+    "REFRESH_TOKEN_LIFETIME": timedelta(days=2),
+}
+
+DJOSER = {"SERIALIZERS": {"user_create": "core.serializers.MyUserCreateSerializer"}}
+
 AUTH_USER_MODEL = "core.User"
+#  {
+#     "refresh": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoicmVmcmVzaCIsImV4cCI6MTY4MzUxNTEyNiwiaWF0IjoxNjgzMzQyMzI2LCJqdGkiOiI2MDM0N2YzZTdmNmI0YjhhYTVlNDI1ZWRmNzMyMjlkMSIsInVzZXJfaWQiOjN9.h4FQwwwvGptgPG9oatsym-_iNkCMA7xoYRC309XLuhk",
+#     "access": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjgzNDI4NzI2LCJpYXQiOjE2ODMzNDIzMjYsImp0aSI6ImRiOWNiMGM1Nzg2ZDRhODZiM2NlODc4NzlhNjRmOTAxIiwidXNlcl9pZCI6M30.v1dJ18cSYtTa53Y1bcoyF6pXOpgzq4DFQhykRvxHAyQ"
+# }
