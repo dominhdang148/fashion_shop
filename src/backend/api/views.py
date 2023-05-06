@@ -4,7 +4,6 @@ from .serializers import *
 from stores.models import *
 from rest_framework.response import Response
 from rest_framework import status
-from api import serializers
 from rest_framework.views import APIView
 from rest_framework.generics import ListCreateAPIView, RetrieveUpdateDestroyAPIView
 from rest_framework.viewsets import ModelViewSet, GenericViewSet
@@ -12,7 +11,11 @@ from rest_framework.filters import SearchFilter, OrderingFilter
 from django_filters.rest_framework import DjangoFilterBackend
 from .filters import *
 from rest_framework.pagination import PageNumberPagination
-from rest_framework.mixins import CreateModelMixin, RetrieveModelMixin
+from rest_framework.mixins import (
+    CreateModelMixin,
+    RetrieveModelMixin,
+    DestroyModelMixin,
+)
 
 # Create your views here.
 
@@ -23,6 +26,7 @@ from rest_framework.mixins import CreateModelMixin, RetrieveModelMixin
 class ProductsViewSet(ModelViewSet):
     queryset = products = Product.objects.all()
     serializer_class = ProductSerializer
+
     filter_backends = [
         DjangoFilterBackend,
         SearchFilter,
@@ -62,6 +66,30 @@ class ReviewViewSet(ModelViewSet):
 # Cart
 
 
-class CartViewSet(CreateModelMixin, RetrieveModelMixin, GenericViewSet):
+class CartViewSet(
+    CreateModelMixin, RetrieveModelMixin, DestroyModelMixin, GenericViewSet
+):
     queryset = Cart.objects.all()
     serializer_class = CartSerializer
+
+
+class CartitemViewSet(ModelViewSet):
+    http_method_names = [
+        "get",
+        "post",
+        "patch",
+        "delete",
+    ]
+
+    def get_queryset(self):
+        return Cartitem.objects.filter(cart_id=self.kwargs["cart_pk"])
+
+    def get_serializer_class(self):
+        if self.request.method == "POST":
+            return AddCardItemSerializer
+        if self.request.method == "PATCH":
+            return UpdateCartItemSerializer
+        return CartitemSerializer
+
+    def get_serializer_context(self):
+        return {"cart_id": self.kwargs["cart_pk"]}

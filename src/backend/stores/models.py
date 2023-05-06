@@ -2,7 +2,6 @@ from django.db import models
 import uuid
 from email.policy import default
 from django.contrib.auth.models import User
-from users.models import Customer
 
 
 class Category(models.Model):
@@ -46,7 +45,7 @@ class Product(models.Model):
     name = models.CharField(max_length=100)
     description = models.TextField()
     discount = models.BooleanField(default=False)
-    slug = models.SlugField(default=None)
+    slug = models.SlugField(default=None, blank=True, null=True)
     image = models.ImageField(
         upload_to="img",
         blank=True,
@@ -64,6 +63,13 @@ class Product(models.Model):
 
     def __str__(self) -> str:
         return self.name
+
+
+class ProductImage(models.Model):
+    product = models.ForeignKey(
+        Product, on_delete=models.CASCADE, related_name="images"
+    )
+    image = models.ImageField(upload_to="img", default="", null=True, blank=True)
 
 
 class Cart(models.Model):
