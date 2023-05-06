@@ -144,7 +144,7 @@ MEDIA_ROOT = BASE_DIR / "static"
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 REST_FRAMEWORK = {
-    "PAGE_SIZE": 5,
+    "PAGE_SIZE": 10,
 }
 
 AUTH_USER_MODEL = "core.User"
