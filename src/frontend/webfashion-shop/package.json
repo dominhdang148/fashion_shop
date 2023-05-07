@@ -10,10 +10,10 @@
     "bootstrap": "^5.2.3",
     "font-awesome": "^4.7.0",
     "react": "^18.2.0",
+    "react-bootstrap": "^2.7.4",
     "react-dom": "^18.2.0",
     "react-loading-skeleton": "^3.2.1",
     "react-redux": "^8.0.5",
-    "react-router-dom": "^6.10.0",
     "react-scripts": "5.0.1",
     "redux": "^4.2.1",
     "web-vitals": "^2.1.4"
@@ -41,5 +41,8 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "react-router-dom": "^6.11.1"
   }
 }

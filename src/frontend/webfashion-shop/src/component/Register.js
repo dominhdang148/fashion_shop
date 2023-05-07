@@ -4,7 +4,7 @@ import Navbar from "../component/Navbar";
 const Register = () => {
     return (
         <div>
-            <Navbar/>
+            
             <div className="container py-5">
                 <div className="row justify-content-center">
                     <div className="col-md-6">

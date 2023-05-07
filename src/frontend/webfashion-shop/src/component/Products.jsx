@@ -39,7 +39,7 @@ function Products() {
   // lọc danh sách sản phẩm theo danh mục Women's Clothing
   const filterWomenClothing = () => {
     filterProduct("women's clothing");
-  };
+  };  
 
 
   const ShowProducts = () => {
@@ -74,7 +74,7 @@ function Products() {
                   <img
                     src={product.name}
                     className="card-img-top"
-                    alt={product.name}
+                    alt={product.image}
                     height="250px"
                   ></img>
                   <div className="card-body">
@@ -102,7 +102,6 @@ function Products() {
   };
   return (
     <div>
-      <Navbar />
       <div className="container my-5 py-5">
         <div className="row">
           <div className="col-12 mb-5">

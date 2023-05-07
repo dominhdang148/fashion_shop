@@ -2,73 +2,43 @@ import React, { useEffect, useState } from "react";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import { Link, useParams, Navigate, useNavigate } from "react-router-dom";
-import { getCategories, getProductById, updateProduct } from "../../Services/repository";
+import { getProductById } from "../../Services/repository";
 import {isEmptyOrSpaces} from '../../Utils/Utils';
 // import { useSelector } from "react-redux";
 // import config from "../../config";
 
-const EditProducts = () => {
+const AddProducts = () => {
   const initialState = {
-      product_id: "",
+      product_id: 0,
       name: "",
       description: "",
       inventory: "",
       image: "",
       price: 0,
-      category: {},
+      category: 0,
     },
-    [product, setProduct] = useState(initialState),
-    [categories, setCategories] = useState([]);
-    // console.log(categories);
-  // console.log(product);
-  const navigate = useNavigate();
+    [product, setProduct] = useState(initialState);
+  console.log(product);
   let { id } = useParams();
-  id = id ?? "";
+  id = id ?? 0;
 
   useEffect(() => {
     getProductById(id).then((data) => {
-      if (data) {
+      if (data)
         setProduct({
           ...data,
         });
-      }
-      else {
-        setProduct(initialState);
-      } 
-    }, [id]);
-    getCategories().then(data => {
-        if (data)
-            setCategories(data);
-        else
-            setCategories([]);
-    }, []);
+      else setProduct(initialState);
+    });
+    // getCategories().then(data => {
+    //     if (data)
+    //         setCategories(data);
+    //     else
+    //         setCategories([]);
+    // });
   }, []);
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    
-    let form = new FormData()
-    form.append("name", String(product.name));
-    form.append("description", String(product.description));
-    form.append("inventory", String(product.inventory));
-    form.append("image", product.image);
-    form.append("category", String(product.category));
-    form.append("price", String(product.price));
-    let formDataObj = {};
-    for (let pair of form.entries()) {
-      formDataObj[pair[0]] = pair[1];
-    }
-    
-    let json = JSON.stringify(formDataObj);
-    updateProduct(id, json, navigate).then(data => {
-      if (data === true) {
-        alert("Success!");
-        navigate("/admin/products");
-      } else {
-        alert("Error");
-      }
-    })
-  };
+  const handleSubmit = () => {};
 
   return (
     <>
@@ -82,7 +52,7 @@ const EditProducts = () => {
                   encType="multipart/form-data"
                   onSubmit={handleSubmit}
                 >
-                  <Form.Control type="hidden" name="id" value={product.product_id} />
+                  <Form.Control type="hidden" name="id" value={product.id} />
                   <div className="row mb-3" style={{ marginBottom: "30px" }}>
                     <Form.Label className="col-sm-2 col-form-label">
                       Tên sản phẩm
@@ -124,13 +94,13 @@ const EditProducts = () => {
                       />
                     </div>
                   </div>
-                  {!isEmptyOrSpaces(product.image) && (
+                  {!isEmptyOrSpaces(product.imageUrl) && (
                     <div className="row mb-3">
                       <Form.Label className="col-sm-2 col-form-label">
                         Hình hiện tại
                       </Form.Label>
                       <div className="col-sm-10">
-                        <img src={product.image} alt={product.title} />
+                        <img src={product.imageUrl} alt={product.title} />
                       </div>
                     </div>
                   )}
@@ -141,13 +111,13 @@ const EditProducts = () => {
                     <div className="col-sm-10">
                       <Form.Control
                         type="file"
-                        name="image"
+                        name="imageFile"
                         accept="image/*"
                         title="Image file"
                         onChange={(e) =>
                           setProduct({
                             ...product,
-                            image: e.target.files[0],
+                            imageFile: e.target.files[0],
                           })
                         }
                       />
@@ -172,8 +142,8 @@ const EditProducts = () => {
                         }
                       >
                         <option value="">-- Choose Category --</option>
-                        {categories.length > 0 && categories.map((item, index) =>
-                                    <option key={index} value={item.id}>{item.title}</option>)}
+                        {/* {categories.length > 0 && categories.map((item, index) =>
+                                    <option key={index} value={item.id}>{item.name}</option>)} */}
                       </Form.Select>
                     </div>
                   </div>
@@ -223,7 +193,7 @@ const EditProducts = () => {
                       type="submit"
                       style={{ marginRight: "20px" }}
                     >
-                      Lưu
+                      Thêm
                     </Button>
                     <Link to="/admin/product" className="btn btn-danger ms-2">
                       Hủy và quay lại
@@ -239,4 +209,4 @@ const EditProducts = () => {
   );
 };
 
-export default EditProducts;
+export default AddProducts;

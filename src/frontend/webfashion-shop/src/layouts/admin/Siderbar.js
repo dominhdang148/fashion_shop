@@ -19,6 +19,12 @@ const Siderbar = () => {
             </div>
             Products
           </Link>
+          <Link className="nav-link" to="/admin/user">
+            <div className="sb-nav-link-icon">
+              <i className="fas fa-tachometer-alt"></i>
+            </div>
+            User
+          </Link>
 
         </div>
       </div>

@@ -35,13 +35,13 @@ const Cart = () => {
               <div className="col-md-4">
                 <img
                   src={product.image}
-                  alt={product.title}
+                  alt={product.image}
                   height="200px"
                   width="180px"
                 />
               </div>
               <div className="col-md-4">
-                <h3>{product.title}</h3>
+                <h3>{product.name}</h3>
                 <p className="lead fw-bold">
                   {product.qty} X ${product.price} = $
                   {product.qty * product.price}
@@ -84,7 +84,6 @@ const Cart = () => {
 
   return (
     <div>
-      <Navbar />
       <div className="container my-5 py-5">
         <div className="row justify-content-center">{<cartItems />}</div>
       </div>

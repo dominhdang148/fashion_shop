@@ -3,6 +3,7 @@ import { useDispatch } from "react-redux";
 import { addCart } from "../redux/action";
 import { Link, useParams } from "react-router-dom";
 import Skeleton from "react-loading-skeleton";
+<<<<<<< HEAD
 import Navbar from "../component/Navbar";
 
 
@@ -15,6 +16,8 @@ const Product = () => {
     dispatch(addCart(product));
     console.log("check car: ", product);
   };
+=======
+>>>>>>> origin/thanh
 
   useEffect(() => {
       fetch(`http://127.0.0.1:8000/products/${id}/?format=json`)
@@ -30,6 +33,31 @@ const Product = () => {
       });
   }, [id]);
 
+<<<<<<< HEAD
+=======
+const Product = () => {
+  const { id } = useParams();
+  const [product, setProduct] = useState({});
+
+  const dispatch = useDispatch();
+  const addProduct = (product) => {
+    dispatch(addCart(product));
+    console.log("check car: ", product);
+  };
+
+  useEffect(() => {
+      fetch(`http://127.0.0.1:8000/products/${id}/?format=json`)
+      .then((response) => response.json())
+      .then((data) => {
+        setProduct(data);
+      })
+      
+      .catch((error) => {
+        console.error(error);
+      });
+  }, [id]);
+
+>>>>>>> origin/thanh
   
   const ShowProduct = () => {
     return (
@@ -45,10 +73,14 @@ const Product = () => {
         <div className="col-md-6">
           <h4 className="text-uppercase text-black-50">{product.name}</h4>
           <h1 className="display-5">{product.name}</h1>
+<<<<<<< HEAD
           {/* <p className="lead fw-bolder">
             Rating {product.rating && product.rating.rate}
             <i className="fa fa-star"></i>
           </p> */}
+=======
+        
+>>>>>>> origin/thanh
           <h3 className="display-6 fw-bold my-4 px-4 py-2">${product.price}</h3>
           <p className="lead">{product.description}</p>
           <button
@@ -67,7 +99,10 @@ const Product = () => {
 
   return (
     <div>
+<<<<<<< HEAD
       <Navbar />
+=======
+>>>>>>> origin/thanh
       <div className="container py-5">
         <div className="row py-4">{<ShowProduct />}</div>
       </div>
