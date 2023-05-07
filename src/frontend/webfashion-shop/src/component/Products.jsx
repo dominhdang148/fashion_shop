@@ -72,9 +72,9 @@ function Products() {
               <div className="col-md-3 mb-4">
                 <div className="card h-100 text-center p-4" key={product.product_id}>
                   <img
-                    src={product.name}
+                    src={product.image}
                     className="card-img-top"
-                    alt={product.name}
+                    alt={product.image}
                     height="250px"
                   ></img>
                   <div className="card-body">

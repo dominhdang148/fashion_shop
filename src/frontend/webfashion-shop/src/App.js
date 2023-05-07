@@ -16,10 +16,12 @@ import Productss from "./component/Admin/Productss";
 import Users from "./component/Admin/Users";
 import Index from "./component/Index";
 import IndexAdmin from "./layouts/admin/IndexAdmin";
+import AddProducts from "./component/Admin/AddProducts";
 
 function App() {
   return (
-    <BrowserRouter>
+    <div className="App">
+      <BrowserRouter>
         <Routes>
           <Route path="/" element={<Index />}>
             <Route index element={<Home/>}/>
@@ -36,11 +38,15 @@ function App() {
             <Route exact path="/admin/dashboard" element={<Dashboard/>} />
             <Route exact path="/admin/products" element={<Productss/>} />
             <Route exact path="/admin/products/edit" element={<EditProducts/>} />
+            <Route exact path="/admin/products/add" element={<AddProducts/>} />
             <Route exact path="/admin/products/edit/:id" element={<EditProducts/>} />
+            <Route exact path="/admin/products/add/:id" element={<AddProducts/>} />
             <Route exact path="/admin/user" element={<Users/>} />
           </Route>
         </Routes>
     </BrowserRouter>
+    </div>
+    
   );
 }
 

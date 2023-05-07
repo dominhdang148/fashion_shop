@@ -12,8 +12,7 @@ const Productss = () => {
 
   useEffect(() => {
     getProduct().then((data) => {
-      if (data)
-        setProduct(data);
+      if (data) setProduct(data);
       else setProduct([]);
     });
   }, []);
@@ -25,7 +24,14 @@ const Productss = () => {
       <div id="layoutSidenav">
         <div id="layoutSidenav_content">
           <div>
-          <button type="button" class="btn btn-info">Thêm sản phẩm</button>
+          <div className="buttons">
+                <Link to={`/admin/products/add`} className="btn btn-outline-dark btn btn-info m-2">
+                    
+                    Thêm sản phẩm
+                </Link>
+               
+               
+            </div>
             <div className="head-title">
               <h1>Các sản phẩm</h1>
               <div className="product-management-container">
@@ -59,13 +65,24 @@ const Productss = () => {
                           <td>{item.category.title}</td>
                           <td>{item.inventory}</td>
                           <td>{item.price}</td>
-                          <td style={{ fontSize: "24px" , display: "flex"}}>
-                            <button type="button" class="btn btn-info">
-                              Sửa
-                            </button>
-                            <button type="button" class="btn btn-danger">
-                              Xóa
-                            </button>
+                          <td style={{ fontSize: "24px", display: "flex" }}>
+                            <div
+                              className="buttons"
+                              style={{ fontSize: "24px", display: "flex" }}
+                            >
+                              <Link
+                                to={`/admin/products/edit/${item.product_id}`}
+                                className="btn btn-outline-dark btn btn-info"
+                              >
+                                Sửa
+                              </Link>
+                              <Link
+                                to=""
+                                className="btn btn-outline-dark ms-2 btn btn-danger"
+                              >
+                                Xóa
+                              </Link>
+                            </div>
                           </td>
                         </tr>
                       ))
@@ -73,7 +90,7 @@ const Productss = () => {
                       <tr>
                         <td colSpan={4}>
                           <h4 className="text-danger text-center">
-                          Không có sản phẩm nào.
+                            Không có sản phẩm nào.
                           </h4>
                         </td>
                       </tr>
